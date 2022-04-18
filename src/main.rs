@@ -2,17 +2,14 @@
 extern crate rocket;
 
 use rocket::response::content;
-use rocket::tokio::time::{sleep, Duration};
 
-#[get("/test")]
-fn index() -> &'static str {
-  "Hello Guilhermo"
-}
-
-#[get("/sleep/<seconds>")]
-async fn delay(seconds: u64) -> String {
-  sleep(Duration::from_secs(seconds)).await;
-  format!("Program sleeped {} seconds", seconds)
+#[get("/hello/<name>/<age>/<cool>")]
+fn index(name: &str, age: u8, cool: bool) -> String {
+  if cool {
+    format!("You're a cool {} year old, {}!", age, name)
+  } else {
+    format!("{}, we need to talk about coolness.", name)
+  }
 }
 
 #[catch(404)]
@@ -23,6 +20,6 @@ fn not_found_route() -> content::Json<&'static str> {
 #[launch]
 fn rocket() -> _ {
   rocket::build()
-    .mount("/", routes![index, delay])
+    .mount("/", routes![index])
     .register("/", catchers![not_found_route])
 }
