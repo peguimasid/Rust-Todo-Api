@@ -1,3 +1,5 @@
+use super::schema::todos;
+
 #[derive(Queryable, AsChangeset, Serialize, Deserialize, Debug)]
 #[table_name = "todos"]
 pub struct Todo {

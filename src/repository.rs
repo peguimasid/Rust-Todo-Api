@@ -3,8 +3,8 @@
 use diesel;
 use diesel::prelude::*;
 
-use crate::sample::model::Todo;
-use crate::sample::model::NewTodo;
+use crate::model::Todo;
+use crate::model::NewTodo;
 
 use crate::schema::todos;
 use crate::schema::todos::dsl::*;
@@ -19,7 +19,7 @@ pub fn show_todos(connection: &PgConnection) -> QueryResult<Vec<Todo>>  {
 }
 
 pub fn get_todo(todo_id: i32, connection: &PgConnection) -> QueryResult<Todo> {
-  posts::table.find(todo_id).get_result::<Post>(connection)
+  todos::table.find(todo_id).get_result::<Todo>(connection)
 }
 
 pub fn update_todo(todo_id: i32, todo: Todo, connection: &PgConnection) -> QueryResult<Todo> {

@@ -1,13 +1,23 @@
-#![feature(proc_macro_hygiene, decl_macro)]
-
+#![feature(decl_macro, proc_macro_hygiene)]
+#[macro_use] extern crate rocket;
+#[macro_use] extern crate diesel;
+extern crate dotenv;
+extern crate r2d2;
+extern crate r2d2_diesel;
+extern crate rocket_contrib;
 #[macro_use]
-extern crate rocket;
+extern crate serde_derive;
 
-#[get("/hello/<name>/<age>")]
-fn hello(name: String, age: u8) -> String {
-  format!("Hello, {} year old named {}!", age, name)
-}
+use dotenv::dotenv;
+
+mod router;
+mod schema;
+mod connection;
+mod handler;
+mod repository;
+mod model;
 
 fn main() {
-  rocket::ignite().mount("/", routes![hello]).launch();
+  dotenv().ok();
+  router::create_routes();
 }
