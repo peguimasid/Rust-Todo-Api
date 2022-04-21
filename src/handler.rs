@@ -9,9 +9,16 @@ use rocket_contrib::json::Json;
 
 use crate::repository;
 
-#[get("/")]
+#[get("/all")]
 pub fn all_todos(connection: DbConn) -> Result<Json<Vec<Todo>>, Status> {
-  repository::show_todos(&connection)
+  repository::show_all_todos(&connection)
+  .map(|todo| Json(todo))
+  .map_err(|error| error_status(error))
+}
+
+#[get("/pending")]
+pub fn pending_todos(connection: DbConn) -> Result<Json<Vec<Todo>>, Status> {
+  repository::show_pending_todos(&connection)
     .map(|todo| Json(todo))
     .map_err(|error| error_status(error))
 }
@@ -34,6 +41,14 @@ pub fn get_todo(id: i32, connection: DbConn) -> Result<Json<Todo>, Status> {
 #[put("/<id>", format = "application/json", data = "<todo>")]
 pub fn update_todo(id: i32, todo: Json<Todo>, connection: DbConn) -> Result<Json<Todo>, Status> {
   repository::update_todo(id, todo.into_inner(), &connection)
+  .map(|todo| Json(todo))
+  .map_err(|error| error_status(error))
+}
+
+
+#[patch("/<id>/done")]
+pub fn done_todo(id: i32, connection: DbConn) -> Result<Json<Todo>, Status> {
+  repository::done_todo(id, &connection)
   .map(|todo| Json(todo))
   .map_err(|error| error_status(error))
 }
