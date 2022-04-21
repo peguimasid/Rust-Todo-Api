@@ -23,7 +23,7 @@ pub fn pending_tasks(connection: DbConn) -> Result<Json<Vec<Task>>, Status> {
     .map_err(|error| error_status(error))
 }
 
-#[post("/", format ="application/json", data = "<new_task>")]
+#[post("/new", format ="application/json", data = "<new_task>")]
 pub fn create_task(new_task: Json<NewTask>, connection: DbConn) ->  Result<status::Created<Json<Task>>, Status> {
   println!("here 0 {}",&new_task.title);
   repository::create_task(new_task.into_inner(), &connection)
