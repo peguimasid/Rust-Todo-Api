@@ -53,7 +53,6 @@ pub fn done_todo(id: i32, connection: DbConn) -> Result<Json<Todo>, Status> {
   .map_err(|error| error_status(error))
 }
 
-
 #[delete("/<id>")]
 pub fn delete_todo(id: i32, connection: DbConn) -> Result<status::NoContent, Status> {
   repository::delete_todo(id, &connection)

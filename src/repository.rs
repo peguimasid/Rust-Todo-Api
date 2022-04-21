@@ -10,11 +10,11 @@ use crate::schema::todos;
 use crate::schema::todos::dsl::*;
 
 pub fn show_all_todos(connection: &PgConnection) -> QueryResult<Vec<Todo>>  {
-  todos.limit(5).load::<Todo>(&*connection)
+  todos.load::<Todo>(&*connection)
 }
 
 pub fn show_pending_todos(connection: &PgConnection) -> QueryResult<Vec<Todo>>  {
-  todos.limit(5).filter(done.eq(false)).load::<Todo>(&*connection)
+  todos.filter(done.eq(false)).load::<Todo>(&*connection)
 }
 
 pub fn get_todo(todo_id: i32, connection: &PgConnection) -> QueryResult<Todo> {
