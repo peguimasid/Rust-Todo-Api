@@ -6,15 +6,15 @@ pub fn create_routes() {
   rocket::ignite()
     .manage(connection::init_pool())
     .mount(
-      "/todos",
+      "/tasks",
       routes![
-        handler::all_todos,
-        handler::pending_todos,
-        handler::create_todo,
-        handler::get_todo,
-        handler::update_todo,
-        handler::done_todo,
-        handler::delete_todo
+        handler::all_tasks,
+        handler::pending_tasks,
+        handler::create_task,
+        handler::get_task,
+        handler::update_task,
+        handler::done_task,
+        handler::delete_task
       ],
     )
     .launch();

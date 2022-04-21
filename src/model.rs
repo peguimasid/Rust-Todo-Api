@@ -1,15 +1,15 @@
-use super::schema::todos;
+use super::schema::tasks;
 
 #[derive(Queryable, AsChangeset, Serialize, Deserialize, Debug)]
-#[table_name = "todos"]
-pub struct Todo {
+#[table_name = "tasks"]
+pub struct Task {
   pub id: i32,
   pub title: String,
   pub done: bool,
 }
 
 #[derive(Insertable, Serialize, Deserialize)]
-#[table_name = "todos"]
-pub struct NewTodo {
+#[table_name = "tasks"]
+pub struct NewTask {
   pub title: String,
 }

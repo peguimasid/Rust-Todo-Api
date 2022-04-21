@@ -3,36 +3,36 @@
 use diesel;
 use diesel::prelude::*;
 
-use crate::model::Todo;
-use crate::model::NewTodo;
+use crate::model::Task;
+use crate::model::NewTask;
 
-use crate::schema::todos;
-use crate::schema::todos::dsl::*;
+use crate::schema::tasks;
+use crate::schema::tasks::dsl::*;
 
-pub fn show_all_todos(connection: &PgConnection) -> QueryResult<Vec<Todo>>  {
-  todos.load::<Todo>(&*connection)
+pub fn show_all_tasks(connection: &PgConnection) -> QueryResult<Vec<Task>>  {
+  tasks.load::<Task>(&*connection)
 }
 
-pub fn show_pending_todos(connection: &PgConnection) -> QueryResult<Vec<Todo>>  {
-  todos.filter(done.eq(false)).load::<Todo>(&*connection)
+pub fn show_pending_tasks(connection: &PgConnection) -> QueryResult<Vec<Task>>  {
+  tasks.filter(done.eq(false)).load::<Task>(&*connection)
 }
 
-pub fn get_todo(todo_id: i32, connection: &PgConnection) -> QueryResult<Todo> {
-  todos::table.find(todo_id).get_result::<Todo>(connection)
+pub fn get_task(task_id: i32, connection: &PgConnection) -> QueryResult<Task> {
+  tasks::table.find(task_id).get_result::<Task>(connection)
 }
 
-pub fn create_todo(new_todo: NewTodo, conn: &PgConnection) -> QueryResult<Todo> {
-  diesel::insert_into(todos::table).values(&new_todo).get_result(conn)
+pub fn create_task(new_task: NewTask, conn: &PgConnection) -> QueryResult<Task> {
+  diesel::insert_into(tasks::table).values(&new_task).get_result(conn)
 }
 
-pub fn update_todo(todo_id: i32, todo: Todo, connection: &PgConnection) -> QueryResult<Todo> {
-  diesel::update(todos::table.find(todo_id)).set(&todo).get_result(connection)
+pub fn update_task(task_id: i32, task: Task, connection: &PgConnection) -> QueryResult<Task> {
+  diesel::update(tasks::table.find(task_id)).set(&task).get_result(connection)
 }
 
-pub fn done_todo(todo_id: i32, connection: &PgConnection) -> QueryResult<Todo> {
-  diesel::update(todos::table.find(todo_id)).set(done.eq(true)).get_result(connection)
+pub fn done_task(task_id: i32, connection: &PgConnection) -> QueryResult<Task> {
+  diesel::update(tasks::table.find(task_id)).set(done.eq(true)).get_result(connection)
 }
 
-pub fn delete_todo(todo_id: i32, connection: &PgConnection) -> QueryResult<usize> {
-  diesel::delete(todos::table.find(todo_id)).execute(connection)
+pub fn delete_task(task_id: i32, connection: &PgConnection) -> QueryResult<usize> {
+  diesel::delete(tasks::table.find(task_id)).execute(connection)
 }

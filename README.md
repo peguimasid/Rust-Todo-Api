@@ -1,12 +1,12 @@
-<h1 align="center">Welcome to Rust Todo Api 👋</h1>
-<p>🦀 Todo list api made with Rust programming language</p>
+<h1 align="center">Welcome to Rust Task Api 👋</h1>
+<p>🦀 Task list api made with Rust programming language</p>
 
 > Make sure you have [rust](https://rustup.rs/) installed in your machine
 
 ## Install
 
 ```sh
-git clone https://github.com/peguimasid/Rust-Todo-Api.git
+git clone https://github.com/peguimasid/Rust-Task-Api.git
 ```
 
 ## Run

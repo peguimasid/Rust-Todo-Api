@@ -1,5 +1,5 @@
 -- Your SQL goes here
-CREATE TABLE todos (
+CREATE TABLE tasks (
   id SERIAL PRIMARY KEY,
   title VARCHAR NOT NULL,
   done BOOLEAN NOT NULL DEFAULT 'f'

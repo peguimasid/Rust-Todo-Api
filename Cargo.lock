@@ -918,7 +918,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "rust-todo-api"
+name = "rust-task-api"
 version = "0.1.0"
 dependencies = [
  "diesel",
